@@ -1,0 +1,38 @@
+﻿<Window x:Class="ZipPickuper.FileListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZipPickuper"
+        mc:Ignorable="d"
+        Title="File List" Height="{Binding WindowHeight,Mode=TwoWay}" Width="800"
+        WindowStartupLocation="Manual" Top="0" Left="{Binding WindowLeft,Mode=TwoWay}">
+    <Grid>
+        <DataGrid x:Name="dataGrid1" ItemsSource="{Binding Entries}"
+                  SelectionMode="Extended" CanUserAddRows="False" AutoGenerateColumns="False"
+                  MouseDoubleClick="dataGrid1_MouseDoubleClick">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="extractItem" Header="Extract" Click="extractItem_Click"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Name,Mode=OneWay}" Header="Name"/>
+                <DataGridTemplateColumn Header="Thumbnail" MaxWidth="200">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Thumbnail,Mode=OneWay}" MinHeight="150"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Path" Binding="{Binding FullName,Mode=OneWay}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
